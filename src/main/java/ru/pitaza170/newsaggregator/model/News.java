@@ -1,5 +1,6 @@
 package ru.pitaza170.newsaggregator.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,15 +8,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@Table(name="data")
+@Table(name="news")
 public class News {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name="links")
     private String links;
@@ -23,14 +21,64 @@ public class News {
     @Column(name = "title")
     private String title;
 
-    @Column(name="tags")
-    private String tags;
+    @Column(name="role")
+    private String role;
 
     @Column(name="text")
     private String text;
 
-    @Column(name="date")
-    private String date;
+    public News() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public News(Long id, String links, String title, String role, String text) {
+        this.id = id;
+        this.links = links;
+        this.title = title;
+        this.role = role;
+        this.text = text;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+
 
 
 }

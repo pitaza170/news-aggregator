@@ -1,6 +1,7 @@
 # Release Notes
 
-## 0.1.0-SNAPSHOT
+## 0.2.0-SNAPSHOT
 
+*   add batch csv to db
 *   add stub news aggregator
 *   add SpringBoot skeleton project
