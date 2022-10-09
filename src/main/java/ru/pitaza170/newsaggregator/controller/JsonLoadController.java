@@ -3,36 +3,32 @@ package ru.pitaza170.newsaggregator.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.pitaza170.newsaggregator.message.ResponseMessage;
 import ru.pitaza170.newsaggregator.model.News;
 import ru.pitaza170.newsaggregator.service.NewsService;
-import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/feed")
-public class NewsController {
+@Controller
+@RequestMapping("/feed")
+public class JsonLoadController {
 
     private final NewsService newsService;
 
     @Autowired
-    public NewsController(NewsService newsService) {
+    public JsonLoadController(NewsService newsService) {
         this.newsService = newsService;
     }
 
     @GetMapping("/news")
-    public ResponseEntity<List<News>> getAllNews() {
-        try {
-            List<News> news = newsService.findAll();
-
-            if (news.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-            //return ResponseEntity.status(HttpStatus.OK).body(news);
-            return new ResponseEntity<>(news, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public String getAllNews(Model model) {
+        List<News> news = newsService.findAll();
+        model.addAttribute("news", news);
+        return "news_feed";
     }
 
     @PostMapping("/upload")
@@ -44,9 +40,10 @@ public class NewsController {
     }
 
     @GetMapping("/news/{role}")
-    public ResponseEntity<List<News>> findByRole(@PathVariable String role) {
-        List<News> news = newsService.findByRole(role);
-        return new ResponseEntity<>(news, HttpStatus.OK);
+    public String findByRole(@PathVariable("role") String role, Model model) {
+        List<News> newsByRole = newsService.findByRole(role);
+        model.addAttribute("news", newsByRole);
+        return "news_feed";
     }
 
     @DeleteMapping("/news")
@@ -54,7 +51,6 @@ public class NewsController {
         newsService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("succesfully deleted"));
     }
-
 
 
 }
