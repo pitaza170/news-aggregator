@@ -54,7 +54,7 @@ public class News {
         this.title = title;
     }
 
-    public News(Long id, String links, String title, String role, String text) {
+    public News(Long id, String links, String title, String text, String role) {
         this.id = id;
         this.links = links;
         this.title = title;

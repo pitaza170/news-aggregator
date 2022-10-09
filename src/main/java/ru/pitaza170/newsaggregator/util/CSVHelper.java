@@ -26,8 +26,8 @@ public class CSVHelper {
                         Long.parseLong(rec.get("id")),
                         rec.get("links"),
                         rec.get("title"),
-                        rec.get("role"),
-                        rec.get("text")
+                        rec.get("text"),
+                        rec.get("role")
                 );
                 newsList.add(news);
             }
