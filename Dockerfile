@@ -1,5 +1,4 @@
 FROM openjdk:17-jdk-slim
-COPY target/news-aggregator-*.jar news-aggregator.jar
+ADD target/news-aggregator.jar news-aggregator.jar
+ENTRYPOINT ["java", "-jar","news-aggregator.jar"]
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "news-aggregator.jar"]
-

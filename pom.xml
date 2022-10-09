@@ -63,6 +63,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>news-aggregator</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
